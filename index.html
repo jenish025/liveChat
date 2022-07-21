@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="UTF-8" /> 
-    <title>BrilChatBot</title>
+    <meta charset="UTF-8" />
+    <title>BrilBot Chat</title>
     <link
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
@@ -25,8 +25,8 @@
         src: url(https://fonts.gstatic.com/s/materialicons/v50/flUhRq6tzZclQEJ-Vdg-IuiaDsNc.woff2)
           format("woff2");
       }
-      
-      body{
+
+      body {
         background: transparent;
       }
 
@@ -47,7 +47,7 @@
       }
 
       .chat-box-overlay {
-        height: 31rem;
+        height: 35rem;
         overflow: auto;
         padding: 0px 15px;
         margin-top: 5px;
@@ -119,14 +119,14 @@
         display: none;
         background: #efefef;
         position: fixed;
-        right: 30px;
+        right: 5rem;
         bottom: 50px;
         width: 350px;
         max-width: 85vw;
         max-height: 100vh;
         border-radius: 5px;
         /*   box-shadow: 0px 5px 35px 9px #464a92; */
-        box-shadow: 0px 5px 35px 9px #ccc;
+        box-shadow: rgb(0 0 0 / 20%) 0px -1px 14px 0px;
       }
       .chat-box-toggle {
         float: right;
@@ -149,12 +149,10 @@
   -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
   background-color: #f5f5f5;
 }
-
 .chat-logs::-webkit-scrollbar {
   width: 5px;
   background-color: #f5f5f5;
 }
-
 .chat-logs::-webkit-scrollbar-thumb {
   background-color: #5a5eb9;
 } */
@@ -174,11 +172,6 @@
       ::-webkit-scrollbar {
         width: 0px !important;
       }
-
-      /* ::-webkit-scrollbar-thumb {
-  background: #babac0 !important;
-  border-radius: 10px !important;
-} */
 
       .bot-header {
         display: inline-flex;
@@ -234,7 +227,7 @@
         margin: 10px 0;
         overflow: visible;
         border-radius: 0.75rem 0.75rem 0.75rem 0.125rem;
-        padding: 1rem 1.5rem;
+        padding: 9px 18px;
         width: fit-content;
         background-color: rgb(255, 255, 255);
         color: rgb(47, 50, 74);
@@ -261,7 +254,7 @@
         margin: 10px 10px 10px 0px;
         overflow: visible;
         border-radius: 0.75rem;
-        padding: 10px 5px;
+        padding: 2px 0px;
         height: 100%;
         /* width: fit-content; */
         justify-content: center;
@@ -288,6 +281,26 @@
         border-radius: 0.75rem 0.75rem 0.75rem 0.125rem;
         padding: 0px 11px;
         height: 5rem;
+      }
+
+      .chat-box-footer {
+        background-color: white;
+        height: 40px;
+        width: 100%;
+        border-radius: 0px 0px 10px 10px;
+      }
+
+      .chat-box-footer-text {
+        padding: 7px;
+        text-align: center;
+        cursor: pointer;
+      }
+      .chat-box-footer-text a {
+        color: black;
+        text-decoration: none;
+      }
+      .chat-box-footer-text a:hover {
+        color: #1c9be4;
       }
 
       #bot-option-container1 {
@@ -441,7 +454,6 @@
                <div class="input-group-append">
                 <button
                 type="submit"
-
                 class="btn btn-primary"
                 >
                 <i class="fa fa-send"></i>
@@ -562,9 +574,16 @@
             <div class="" id="bot-message-container"></div>
             <div class="option-container-main" id="bot-option-container"></div>
           </div>
+          <div class="chat-box-footer">
+            <div class="chat-box-footer-text">
+              <a
+                href="http://bril-chatbot.s3-website.ap-south-1.amazonaws.com/login"
+                >Made with <b>BrilBot</b></a
+              >
+            </div>
+          </div>
         </div>
       </div>
     </div>
-    
   </body>
 </html>
