@@ -416,7 +416,6 @@
         options = startNode[0]?.data?.nodeData;
         displayData();
       };
-      
 
       const messageText = (preview, type = "chat") => {
         switch (preview?.type) {
@@ -602,14 +601,18 @@
     </script>
   </head>
 
-  <body>
+  <body style="position: absolute">
     <div id="body main-chatbox-container">
       <div id="chat-circle" class="btn btn-raised" onclick="openchat()">
         <div id="chat-overlay"></div>
         <i class="material-icons msg_icon">question_answer</i>
       </div>
 
-      <div class="chat-box" id="chat-box-id">
+      <div
+        class="chat-box"
+        id="chat-box-id"
+        style="position: fixed; display: block; top: 16rem; left: 63rem"
+      >
         <div class="chat-box-header">
           <strong>Bril Chat Bot</strong>
           <span class="chat-box-toggle" onclick="closechat()"
