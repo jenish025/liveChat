@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" id="main-html">
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
     <title>BrilBot Chat</title>
@@ -144,18 +144,6 @@
         padding-left: 10px;
         box-shadow: 0px 3px 5px -1px gray;
       }
-
-      /* .chat-logs::-webkit-scrollbar-track {
-  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
-  background-color: #f5f5f5;
-}
-.chat-logs::-webkit-scrollbar {
-  width: 5px;
-  background-color: #f5f5f5;
-}
-.chat-logs::-webkit-scrollbar-thumb {
-  background-color: #5a5eb9;
-} */
 
       @media only screen and (max-width: 500px) {
         .chat-logs {
@@ -322,6 +310,10 @@
         grid-template-columns: 100px 100px 100px;
       }
 
+      .w-180px {
+        width: 180px;
+      }
+
       @keyframes fadeIn {
         99% {
           visibility: hidden;
@@ -335,7 +327,8 @@
       let chat = [],
         options = [],
         preview = {},
-        temp_chat = [];
+        temp_chat = [],
+        userIp = "";
 
       function openchat() {
         document.getElementById("chat-box-id").style.display = "block";
@@ -343,6 +336,7 @@
       }
 
       window.onload = () => {
+        getUserIp();
         getData();
       };
 
@@ -351,7 +345,7 @@
         document.getElementById("chat-circle").style.display = "block";
       }
 
-      const displayData = async () => {
+      const displayData = () => {
         const messagesContainer = document.getElementById(
           "bot-message-container"
         );
@@ -385,7 +379,7 @@
         scrollToBottom();
       };
 
-      const getData = async () => {
+      const getData = () => {
         axios
           .post(
             "https://chatbot-apis-dev.herokuapp.com/flow/v1/8c2ffc63-63d9-49e1-8a4d-b2b404b36a7c/preview"
@@ -396,11 +390,17 @@
             preview = res;
           });
       };
+      const getUserIp = () => {
+        axios.get("https://ipinfo.io/json?token=ccee4bd2c820d4").then((res) => {
+          userIp = res?.data?.ip;
+        });
+      };
 
       const sendHistory = () => {
         const sendData = {
           flow_id: chat[0]?.flow_id,
           chat: temp_chat,
+          visitor_ip: userIp,
         };
         axios.post(
           "https://chatbot-apis-dev.herokuapp.com/flow/v1/save_chat_history",
@@ -416,6 +416,7 @@
         options = startNode[0]?.data?.nodeData;
         displayData();
       };
+      
 
       const messageText = (preview, type = "chat") => {
         switch (preview?.type) {
@@ -462,6 +463,29 @@
             </div>
           </form>
         </div>`;
+
+          case "media":
+            if (preview.data?.content_type === "video/mp4") {
+              return `<video
+                  class="w-180px"
+                  type="video/mp4"
+                  src=${preview.data.source}
+                  controls
+                />`;
+            } else if (preview.data?.content_type === "audio/mpeg") {
+              return `<audio
+                  class="w-180px"
+                  type="video/mp4"
+                  src=${preview.data.source}
+                  controls
+                />`;
+            } else {
+              return `<img
+                  class="w-180px"
+                  alt="img"
+                  src=${preview.data.source}
+                ></img>`;
+            }
 
           default:
             break;
@@ -533,6 +557,12 @@
             ];
             if (nextNodeData[0]?.data?.nodeData[0]?.type === "chat") {
               findeNextNode(nextNodeData[0]?.data?.nodeData[0]?.id);
+            } else if (
+              nextNodeData[0]?.data?.nodeData[0]?.type === "jumpflow"
+            ) {
+              getAllNodeList(nextNodeData[0]?.data?.nodeData[0]?.jumpId);
+            } else if (nextNodeData[0]?.data?.nodeData[0]?.type === "media") {
+              findeNextNode(nextNodeData[0]?.data?.nodeData[0]?.id);
             }
           } else {
             const btnChat = nextNodeData[0]?.data?.nodeData.filter(
@@ -551,6 +581,23 @@
       function scrollToBottom() {
         element = document.getElementById("chat-box");
         element.scrollTop = element.scrollHeight;
+      }
+
+      function handleStartAgain() {
+        const nodes = preview?.data?.nodes;
+        const startNode = nodes?.filter((data) => data?.type === "special");
+        chat = [...startNode[0]?.data?.nodeData];
+        options = startNode[0]?.data?.nodeData;
+
+        const sendData = {
+          flow_id: chat[0]?.flow_id,
+          chat: [],
+          visitor_ip: userIp,
+        };
+        axios.post(
+          "https://chatbot-apis-dev.herokuapp.com/flow/v1/save_chat_history",
+          sendData
+        );
       }
     </script>
   </head>
@@ -573,11 +620,13 @@
           <div class="chat-box-overlay" id="chat-box">
             <div class="" id="bot-message-container"></div>
             <div class="option-container-main" id="bot-option-container"></div>
+            <div>
+              <button onclick="handleStartAgain()">Start</button>
+            </div>
           </div>
           <div class="chat-box-footer">
             <div class="chat-box-footer-text">
               <a
-                target="_blank"
                 href="http://bril-chatbot.s3-website.ap-south-1.amazonaws.com/login"
                 >Made with <b>BrilBot</b></a
               >
