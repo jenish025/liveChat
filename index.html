@@ -584,7 +584,7 @@
             } else if (
               nextNodeData[0]?.data?.nodeData[0]?.type === "jumpflow"
             ) {
-              getAllNodeList(nextNodeData[0]?.data?.nodeData[0]?.jumpId);
+              getAllNodeList(nextNodeData[0]?.data?.nodeData[0]?.data?.jumpId);
             } else if (nextNodeData[0]?.data?.nodeData[0]?.type === "media") {
               findeNextNode(nextNodeData[0]?.data?.nodeData[0]?.id);
             }
