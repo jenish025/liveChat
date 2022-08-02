@@ -346,6 +346,16 @@
       }
 
          window.onload = () => {
+           axios.interceptors.request.use(
+            (config) => {
+              const authorizationConfig = config;
+              authorizationConfig.headers.common.Authorization = `Bearer ${localStorage.getItem(
+                "token"
+              )}`;
+              return authorizationConfig;
+            },
+            (error) => Promise.reject(error)
+          );
           getUserIp();
           getPathUrl();
         };
@@ -441,6 +451,8 @@
         options = startNode[0]?.data?.nodeData;
         displayData();
       };
+      
+      
 
       const messageText = (preview, type = "chat") => {
         switch (preview?.type) {
@@ -561,6 +573,17 @@
             break;
         }
       };
+      
+       const getAllNodeList = (id) => {
+          axios
+            .get(
+              `https://chatbot-apis-dev.herokuapp.com/flow/v1/get_diagram?flow_id=${id}`
+            )
+            .then((res) => {
+              setStartNode(res);
+              preview = res;
+            });
+        };
 
       const findeNextNode = (sourceId) => {
         options = [];
