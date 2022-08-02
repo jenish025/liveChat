@@ -353,7 +353,18 @@
         const getPathUrl = () => {
           var pathArray = window.location.search.split("?")[1];
           console.log(pathArray);
-          getData();
+          getToken(parseInt(pathArray));
+        };
+
+        const getToken = (id) => {
+          axios
+            .get(
+              `https://chatbot-apis-dev.herokuapp.com/flow/v1/publish?flow_id=${id}`
+            )
+            .then((res) => {
+              console.log(res);
+              getData(res?.token);
+            });
         };
 
       function closechat() {
@@ -395,10 +406,10 @@
         scrollToBottom();
       };
 
-      const getData = () => {
+      const getData = (token) => {
         axios
           .post(
-            "https://chatbot-apis-dev.herokuapp.com/flow/v1/8c2ffc63-63d9-49e1-8a4d-b2b404b36a7c/preview"
+            `https://chatbot-apis-dev.herokuapp.com/flow/v1/${token}/preview`
           )
           .then((res) => {
             displayData(res?.data);
