@@ -346,25 +346,33 @@
       }
 
          window.onload = () => {
-           const local =localStorage.getItem("token")
-           console.log(local)
-           axios.interceptors.request.use(
-            (config) => {
-              const authorizationConfig = config;
-              authorizationConfig.headers.common.Authorization = `Bearer`;
-              return authorizationConfig;
-            },
-            (error) => Promise.reject(error)
-          );
           getUserIp();
           getPathUrl();
         };
 
         const getPathUrl = () => {
           var pathArray = window.location.search.split("?")[1];
-          var userId =window.location.search.split("?");
-          console.log(userId);
+          var userId = window.location.search.split("?")[2];
+          addUserToken(parseInt(userId));
           getToken(parseInt(pathArray));
+        };
+      
+    const addUserToken = (id) => {
+          axios
+            .get(
+              `https://chatbot-apis-dev.herokuapp.com/users/v1/user_profile?user_id=${id}`
+            )
+            .then((res) => {
+              console.log(res?.data?.Token);
+              axios.interceptors.request.use(
+                (config) => {
+                  const authorizationConfig = config;
+                  authorizationConfig.headers.common.Authorization = `Bearer ${res?.data?.Token}`;
+                  return authorizationConfig;
+                },
+                (error) => Promise.reject(error)
+              );
+            });
         };
 
         const getToken = (id) => {
