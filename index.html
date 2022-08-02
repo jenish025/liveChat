@@ -346,12 +346,12 @@
       }
 
          window.onload = () => {
+           const local =localStorage.getItem("token")
+           console.log(local)
            axios.interceptors.request.use(
             (config) => {
               const authorizationConfig = config;
-              authorizationConfig.headers.common.Authorization = `Bearer ${localStorage.getItem(
-                "token"
-              )}`;
+              authorizationConfig.headers.common.Authorization = `Bearer`;
               return authorizationConfig;
             },
             (error) => Promise.reject(error)
