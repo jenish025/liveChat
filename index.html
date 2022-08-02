@@ -345,12 +345,16 @@
         document.getElementById("chat-circle").style.display = "none";
       }
 
-      window.onload = () => {
-        getUserIp();
-        getData();
-        var pathArray = window.location.pathname;
+         window.onload = () => {
+          getUserIp();
+          getPathUrl();
+        };
+
+        const getPathUrl = () => {
+          var pathArray = window.location;
           console.log(pathArray);
-      };
+          getData();
+        };
 
       function closechat() {
         document.getElementById("chat-box-id").style.display = "none";
