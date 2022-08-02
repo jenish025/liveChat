@@ -361,7 +361,6 @@
               `https://chatbot-apis-dev.herokuapp.com/flow/v1/flow_detail?flow_id=${id}`
             )
             .then((res) => {
-              console.log(res);
               getData(res?.data?.publish_token);
             });
         };
