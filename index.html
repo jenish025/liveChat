@@ -348,6 +348,8 @@
       window.onload = () => {
         getUserIp();
         getData();
+        var pathArray = window.location.pathname.split("/");
+          console.log(pathArray);
       };
 
       function closechat() {
