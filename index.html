@@ -340,17 +340,12 @@
         temp_chat = [],
         userIp = "";
 
-      function openchat() {
-        
-        const openDiv = document.getElementById("ifrmlive");
-          console.log(openDiv,"open");
+      function openchat() { 
         document.getElementById("chat-box-id").style.display = "block";
         document.getElementById("chat-circle").style.display = "none";
       }
 
          window.onload = () => {
-           const openDiv = document.getElementById("ifrmlive");
-          console.log(openDiv,"onload");
           getUserIp();
           getPathUrl();
         };
