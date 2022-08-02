@@ -362,6 +362,8 @@
 
         const getPathUrl = () => {
           var pathArray = window.location.search.split("?")[1];
+          var userId =window.location.search.split("?");
+          console.log(userId);
           getToken(parseInt(pathArray));
         };
 
