@@ -359,7 +359,7 @@
         const getToken = (id) => {
           axios
             .get(
-              `https://chatbot-apis-dev.herokuapp.com/flow/v1/publish?flow_id=${id}`
+              `https://chatbot-apis-dev.herokuapp.com/flow/v1/flow_detail?flow_id=${id}`
             )
             .then((res) => {
               console.log(res);
