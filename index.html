@@ -353,14 +353,12 @@
         };
 
         const getPathUrl = () => {
-         const oldPath = window.location.search.split("?")
-         console.log(oldPath)
-//          const newPath = oldPath.split("=")
-//          console.log(newPath)
-          var pathArray = window.location.search.split("?")[1];
-          var userId = window.location.search.split("?")[2];
+         const oldPath = window.location.search.split("?")[1]
+         const newPath = oldPath.split("&");
+         const userId = newPath[1].split("=")[1];
+         const flowId = newPath[0].split("=")[1];
           addUserToken(parseInt(userId));
-          getToken(parseInt(pathArray));
+          getToken(parseInt(flowId));
         };
       
     const addUserToken = (id) => {
