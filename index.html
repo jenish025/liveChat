@@ -358,7 +358,10 @@
          const userId = newPath[1].split("=")[1];
          const flowId = newPath[0].split("=")[1];
           addUserToken(parseInt(userId));
-          getToken(parseInt(flowId));
+          setTimeout(() => {
+           getToken(parseInt(flowId));
+          }, 1000);
+          
         };
       
     const addUserToken = (id) => {
