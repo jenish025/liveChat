@@ -614,7 +614,7 @@
           const nextNodeData = nodes.filter(
             (data) => data?.id === nextNodeId[0]?.target
           );
-          if (nextNodeData[0]?.data?.nodeData[0]?.type !== "button") {
+          if (nextNodeData[0]?.type !== "button") {
             temp_chat = [
               ...temp_chat,
               { ...nextNodeData[0]?.data?.nodeData[0] },
