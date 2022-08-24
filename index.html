@@ -367,7 +367,7 @@
     const addUserToken = (id) => {
           axios
             .get(
-              `https://chatbot-apis-dev.herokuapp.com/users/v1/user_profile?user_id=${id}`
+              `https://chatbot-apis-dev.herokuapp.com/api/users/v1/user_profile?user_id=${id}`
             )
             .then((res) => {
               console.log(res?.data?.Token);
@@ -385,7 +385,7 @@
         const getToken = (id) => {
           axios
             .get(
-              `https://chatbot-apis-dev.herokuapp.com/flow/v1/flow_detail?flow_id=${id}`
+              `https://chatbot-apis-dev.herokuapp.com/api/flow/v1/flow_detail?flow_id=${id}`
             )
             .then((res) => {
               getData(res?.data?.publish_token);
@@ -434,7 +434,7 @@
       const getData = (token) => {
         axios
           .post(
-            `https://chatbot-apis-dev.herokuapp.com/flow/v1/${token}/preview`
+            `https://chatbot-apis-dev.herokuapp.com/api/flow/v1/${token}/preview`
           )
           .then((res) => {
             displayData(res?.data);
@@ -455,7 +455,7 @@
           visitor_ip: userIp,
         };
         axios.post(
-          "https://chatbot-apis-dev.herokuapp.com/flow/v1/save_chat_history",
+          "https://chatbot-apis-dev.herokuapp.com/api/flow/v1/save_chat_history",
           sendData
         );
       };
@@ -594,7 +594,7 @@
        const getAllNodeList = (id) => {
           axios
             .get(
-              `https://chatbot-apis-dev.herokuapp.com/flow/v1/get_diagram?flow_id=${id}`
+              `https://chatbot-apis-dev.herokuapp.com/api/flow/v1/get_diagram?flow_id=${id}`
             )
             .then((res) => {
               setStartNode(res);
@@ -659,7 +659,7 @@
           visitor_ip: userIp,
         };
         axios.post(
-          "https://chatbot-apis-dev.herokuapp.com/flow/v1/save_chat_history",
+          "https://chatbot-apis-dev.herokuapp.com/api/flow/v1/save_chat_history",
           sendData
         );
       }
